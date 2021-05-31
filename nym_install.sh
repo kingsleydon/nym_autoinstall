@@ -18,6 +18,7 @@
 
 telegram=$2
 id='winston-smithnode'
+directory=$id
 
 function display_usage() {
 	#printf "%b\n\n\n" "${WHITE}This script must be run with super-user privileges."
@@ -215,10 +216,9 @@ fi
 function nym_systemd_print() {
   printf "%b\n\n\n" "${WHITE} --------------------------------------------------------------------------------"
   printf "%b\n\n\n" "${YELLOW} Creating ${WHITE} a systemd service file to run nym-mixnode in the background: "
-  printf "%b\n\n\n" "${WHITE} Please select a ${YELLOW} mixnode"
+  # printf "%b\n\n\n" "${WHITE} Please select a ${YELLOW} mixnode"
   # select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
   # directory=$(echo "$d" | rev | cut -d/ -f1 | rev)
-  directory='winston-smithnode'
 
   printf "%b\n\n\n"
   printf "%b\n\n\n"
@@ -226,15 +226,15 @@ function nym_systemd_print() {
   #echo "You selected $directory"
   printf "%b\n\n\n"
   echo
-  printf "%b\n\n\n" "${WHITE} Do you want to create a systemd file for this node?\n\n\n\e[0;31m WARNING: IF YOU ALREADY HAVE ANOTHER NODE CONFIGURED THIS WILL OVERWRITE IT\e[0m\n"
-  printf "%b\n\n\n"
-    while true ; do
-        read -p  $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;37m] Do you want to continue \e[1;92mYes - (Yy) \e[1;37m or  \e[1;91mNo - (Nn)  ?? :  \e[0m' yn
-        case $yn in
-            [Yy]* ) break;;
-            [Nn]* ) exit;;
-        esac
-    done
+  # printf "%b\n\n\n" "${WHITE} Do you want to create a systemd file for this node?\n\n\n\e[0;31m WARNING: IF YOU ALREADY HAVE ANOTHER NODE CONFIGURED THIS WILL OVERWRITE IT\e[0m\n"
+  # printf "%b\n\n\n"
+  #   while true ; do
+  #       read -p  $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;37m] Do you want to continue \e[1;92mYes - (Yy) \e[1;37m or  \e[1;91mNo - (Nn)  ?? :  \e[0m' yn
+  #       case $yn in
+  #           [Yy]* ) break;;
+  #           [Nn]* ) exit;;
+  #       esac
+  #   done
 
                 #id=$(echo "$i" | rev | cut -d/ -f1 | rev)
                 printf '%s\n' "[Unit]" > /etc/systemd/system/nym-mixnode.service
@@ -271,9 +271,9 @@ function nym_systemd_print() {
 ## and not to /etc/systemd/system/ directory
 function nym_systemd_print_local() {
   printf "%b\n\n\n" "${WHITE} --------------------------------------------------------------------------------"
-  printf "\e[1;33mPlease select a mixnode:\n"
-  select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
-  directory=$(echo "$d" | rev | cut -d/ -f1 | rev)
+  # printf "\e[1;33mPlease select a mixnode:\n"
+  # select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
+  # directory=$(echo "$d" | rev | cut -d/ -f1 | rev)
   printf "%b\n\n\n" "${WHITE} You selected ${YELLOW} $directory"
   echo
   printf "%b\n\n\n"
@@ -352,8 +352,8 @@ function nym_systemd_run() {
     printf "%b\n\n\n"
     printf "%b\n\n\n" "${WHITE} Please select a ${YELLOW} mixnode"
     printf "%b\n\n\n"
-    select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
-    directory=$(printf "%b\n\n\n" "${WHITE}$d" | rev | cut -d/ -f1 | rev)
+    # select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
+    # directory=$(printf "%b\n\n\n" "${WHITE}$d" | rev | cut -d/ -f1 | rev)
     printf "\e[1;82mYou selected\e[0m\e[3;11m ${WHITE} $directory\e[0m\n"
     printf "%b\n\n\n"
 
@@ -454,8 +454,8 @@ fi
 function upgrade_nym () {
 #set -x
 cd /home/nym
-select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
-directory=$(echo "$d" | rev | cut -d/ -f1 | rev)
+# select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
+# directory=$(echo "$d" | rev | cut -d/ -f1 | rev)
 printf "%b\n\n\n"
 printf "%b\n\n\n" "${WHITE} You selected ${YELLOW} $directory"
 sleep 2
@@ -549,8 +549,8 @@ upgrade_nym && sleep 5 && systemctl start nym-mixnode.service && printf "%b\n\n\
   then
     printf "%b\n\n\n" "${WHITE} Please select a ${YELLOW} mixnode"
     printf "%b\n\n\n"
-    select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
-    directory=$(printf "%b\n\n\n" "${WHITE}$d" | rev | cut -d/ -f1 | rev)
+    # select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
+    # directory=$(printf "%b\n\n\n" "${WHITE}$d" | rev | cut -d/ -f1 | rev)
     cd /home/nym || exit 2
     printf "\e[1;82mYou selected\e[0m\e[3;11m ${WHITE} $directory\e[0m\n"
     printf "%b\n\n\n"
@@ -628,8 +628,8 @@ upgrade_nym && sleep 5 && systemctl start nym-mixnode.service && printf "%b\n\n\
   then
     printf "%b\n\n\n" "${WHITE} Please select a ${YELLOW} mixnode"
     printf "%b\n\n\n"
-    select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
-    directory=$(printf "%b\n\n\n" "${WHITE}$d" | rev | cut -d/ -f1 | rev)
+    # select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
+    # directory=$(printf "%b\n\n\n" "${WHITE}$d" | rev | cut -d/ -f1 | rev)
     cd /home/nym || exit 2
     printf "\e[1;82mYou selected\e[0m\e[3;11m ${WHITE} $directory\e[0m\n"
     cat /home/nym/${directory}_claim.txt || echo "claim file not found. Are you sure you ran init?"
