@@ -16,6 +16,8 @@
 ## turn_on_tune_in_drop_out
 ############################################################################
 
+telegram=$2
+id='winston-smithnode'
 
 function display_usage() {
 	#printf "%b\n\n\n" "${WHITE}This script must be run with super-user privileges."
@@ -214,8 +216,10 @@ function nym_systemd_print() {
   printf "%b\n\n\n" "${WHITE} --------------------------------------------------------------------------------"
   printf "%b\n\n\n" "${YELLOW} Creating ${WHITE} a systemd service file to run nym-mixnode in the background: "
   printf "%b\n\n\n" "${WHITE} Please select a ${YELLOW} mixnode"
-  select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
-  directory=$(echo "$d" | rev | cut -d/ -f1 | rev)
+  # select d in /home/nym/.nym/mixnodes/* ; do test -n "$d" && break; printf "%b\n\n\n" "${WHITE} >>> Invalid Selection"; done
+  # directory=$(echo "$d" | rev | cut -d/ -f1 | rev)
+  directory='winston-smithnode'
+
   printf "%b\n\n\n"
   printf "%b\n\n\n"
   printf "%b\n\n\n" "${WHITE} You selected ${YELLOW} $directory"
@@ -319,16 +323,16 @@ function nym_init() {
  if
    [[ $PWD/ != /home/nym ]] | cd /home/nym && echo $PWD
  then
-   printf "%b\n\n\n" "${WHITE} What name do you want for your node ${YELLOW} id? "
-   printf "%b\n\n\n" "${WHITE} This is only for your own purposes and creates a directory with that name in ${YELLOW}/home/nym/.nym/mixnodes/<YOURID>. ${YELLOW} Config ${WHITE} and ${YELLOW} keys ${WHITE}are stored there "
-   printf "%b\n\n\n"
-   read id
-   printf "%b\n\n\n"
-   printf "%b\n\n\n" "${WHITE} Your node name will be ${YELLOW} $id. ${WHITE} Use it nextime if you restart your server or the node is not running"
-   printf "%b\n\n\n"
-   printf "%b\n\n\n" "${WHITE} Enter your Telegram handle beginning with @"
-   printf "%b\n\n\n"
-   read telegram
+  #  printf "%b\n\n\n" "${WHITE} What name do you want for your node ${YELLOW} id? "
+  #  printf "%b\n\n\n" "${WHITE} This is only for your own purposes and creates a directory with that name in ${YELLOW}/home/nym/.nym/mixnodes/<YOURID>. ${YELLOW} Config ${WHITE} and ${YELLOW} keys ${WHITE}are stored there "
+  #  printf "%b\n\n\n"
+  # #  read id
+  #  printf "%b\n\n\n"
+  #  printf "%b\n\n\n" "${WHITE} Your node name will be ${YELLOW} $id. ${WHITE} Use it nextime if you restart your server or the node is not running"
+  #  printf "%b\n\n\n"
+  #  printf "%b\n\n\n" "${WHITE} Enter your Telegram handle beginning with @"
+  #  printf "%b\n\n\n"
+  #  read telegram
    printf "%b\n\n\n" "${WHITE} Your Telegram handle for the faucet will be ${YELLOW} ${telegram} "
    printf "%b\n\n\n" "${WHITE} --------------------------------------------------------------------------------"
    # borrows a shell for nym user to initialize the node config.
@@ -364,7 +368,7 @@ function nym_sign () {
     printf "%b\n\n\n"
     printf "%b\n\n\n" "${WHITE} Enter your Telegram handle beginning with @"
     printf "%b\n\n\n"
-    read telegram
+    # read telegram
     printf "%b\n\n\n" "${WHITE} Your Telegram handle for the faucet will be ${YELLOW} ${telegram} "
     printf "%b\n\n\n" "${WHITE} --------------------------------------------------------------------------------"
     # borrows a shell for nym user to initialize the node config.
@@ -457,7 +461,7 @@ printf "%b\n\n\n" "${WHITE} You selected ${YELLOW} $directory"
 sleep 2
 printf "%b\n\n\n" "${WHITE} Enter your Telegram handle beginning with @"
 printf "%b\n\n\n"
-read telegram
+# read telegram
 printf "%b\n\n\n" "${WHITE} Your Telegram handle for the faucet will be ${YELLOW} ${telegram} "
 
 sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory 
@@ -489,7 +493,7 @@ upgrade_nym && sleep 5 && systemctl start nym-mixnode.service && printf "%b\n\n\
     nym_chown
     nym_init
     nym_systemd_print
-    nym_ufw
+    # nym_ufw
     nym_systemd_run
     printf "%b\n\n\n" "${WHITE} --------------------------------------------------------------------------------"
     printf "%b\n" "${WHITE}                1. Make sure to also check the official docs for the next steps ! "
@@ -552,7 +556,7 @@ upgrade_nym && sleep 5 && systemctl start nym-mixnode.service && printf "%b\n\n\
     printf "%b\n\n\n"
     printf "%b\n\n\n" "${WHITE} Enter your Telegram handle beginning with @"
     printf "%b\n\n\n"
-    read telegram
+    # read telegram
     printf "%b\n\n\n" "${WHITE} Your Telegram handle for the faucet will be ${YELLOW} ${telegram} "
     printf "%b\n\n\n" "${WHITE} --------------------------------------------------------------------------------"
     # borrows a shell for nym user to initialize the node config.
