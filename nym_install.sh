@@ -317,7 +317,7 @@ function nym_systemd_print_local() {
 function nym_init() {
  #get server's ipv4 address
  #set -x
- ip_addr=`curl -sS ipinfo.io/ip`
+ ip_addr=`curl -sS ipv4.icanhazip.com`
  printf "%b\n\n\n" "${WHITE} --------------------------------------------------------------------------------"
  printf "%b\n\n\n" "${YELLOW} Configuration ${WHITE} file and keys: "
  if
