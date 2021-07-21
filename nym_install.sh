@@ -17,6 +17,7 @@
 ############################################################################
 
 telegram=$2
+punkwallet=$3
 id='winston-smithnode'
 directory=$id
 
@@ -435,8 +436,8 @@ VERSION=$(curl https://github.com/nymtech/nym/releases/latest --cacert /etc/ssl/
 URL="https://github.com/nymtech/nym/releases/download/v$VERSION/nym-mixnode_linux_x86_64"
 
 # Check if the version is up to date. If not, fetch the latest release.
-if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )" != "$VERSION" ]
-   then
+# if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --version | grep Nym | cut -c 13- )" != "$VERSION" ]
+  #  then
        if systemctl list-units --state=running | grep nym-mixnode
           then echo "stopping nym-mixnode.service to update the node ..." && systemctl kill --signal=SIGINT nym-mixnode
                 curl -L -s "$URL" -o "nym-mixnode_linux_x86_64" --cacert /etc/ssl/certs/ca-certificates.crt && echo "Fetching the latest version" && pwd
@@ -445,11 +446,11 @@ if [ ! -f nym-mixnode_linux_x86_64 ] || [ "$(./nym-mixnode_linux_x86_64 --versio
 	   # Make it executable
    chmod +x ./nym-mixnode_linux_x86_64 && chown nym:nym ./nym-mixnode_linux_x86_64
    fi
-else
-   echo "You have the latest version of Nym-mixnode $VERSION"
-   exit 1
+# else
+  #  echo "You have the latest version of Nym-mixnode $VERSION"
+  #  exit 1
 
-fi
+# fi
 }
 function upgrade_nym () {
 #set -x
@@ -466,7 +467,7 @@ printf "%b\n\n\n" "${WHITE} Your Telegram handle for the faucet will be ${YELLOW
 
 sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $directory 
 sleep 2
-sudo -u nym -H ./nym-mixnode_linux_x86_64 sign --id $directory --text ${telegram}
+sudo -u nym -H ./nym-mixnode_linux_x86_64 sign --id $directory --text "${telegram} ${punkwallet}"
 }
 #set -x
 
