@@ -15,4 +15,4 @@ chmod 777 ./nym-mixnode_linux_x86_64
 sleep 2
 sudo -u nym -H ./nym-mixnode_linux_x86_64 upgrade --id $id
 sleep 2
-sudo -u nym -H ./nym-mixnode_linux_x86_64 sign --id $id --text "$text"
+sudo -u nym -H ./nym-mixnode_linux_x86_64 sign --id $id --text $text
